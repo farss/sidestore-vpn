@@ -110,7 +110,22 @@ Ensure the `ExecStart` path is correct. To enable it:
 2. Run `sudo systemctl daemon-reload` to load the service
 3. Run `sudo systemctl enable sidestore` to enable the service
 4. Run `sudo systemctl start sidestore` to start the service
-5. Run `sudo systemctl status sidestore` to check if the service is running 
+5. Run `sudo systemctl status sidestore` to check if the service is running
+
+# Do the same thing with Nftables
+
+If you're familiar with Nftables and are comformable with editing firewall rules directly, you can use the following rules to do the exact same thing as this program:
+
+```
+table ip sidestore {
+  chain NAT_PREROUTING {
+    type nat hook prerouting priority -350; policy accept;
+    ip daddr 10.7.0.1 ip daddr set ip saddr ip saddr set 10.7.0.1 notrack
+  }
+}
+```
+
+Thanks to [@KusakabeShi](https://github.com/KusakabeShi) for providing this working rule.
 
 # Credit
 
