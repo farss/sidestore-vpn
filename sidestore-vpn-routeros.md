@@ -109,6 +109,7 @@ docker run --rm \
 假设 iPhone 是 `192.168.88.50`（改成实际地址，并尽量做 DHCP lease 绑定）。
 
 ```routeros
+# 这两条实测不需要也可以
 /ip firewall filter
 add chain=forward dst-address=10.7.0.1 action=accept place-before=0 \
     comment="sidestore skip fasttrack"
